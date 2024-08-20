@@ -1,0 +1,34 @@
+type Users = {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+};
+export default async function UserPage() {
+    await new Promise((resolve)=> setTimeout(resolve,2000))
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users = await response.json();
+//   console.log(users);
+  return (
+    <div className="grid grid-cols-2 gap-2 p-3">
+      {users.map((user: Users) => {
+        return (
+          <div
+            key={user.id}
+            className="flex items-center justify-between p-3 bg-white shadow-sm rounded-lg text-black"
+          >
+            <div className="flex flex-col space-y-1">
+              <h2 className="text-lg font-semibold">{user.name}</h2>
+              <p className="text-sm">{user.username}</p>
+            </div>
+            <div className="flex flex-col space-y-1 items-end">
+              <p className="text-md">{user.email}</p>
+              <p className="text-md">{user.phone}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
